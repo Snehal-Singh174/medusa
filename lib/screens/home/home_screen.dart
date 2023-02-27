@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:medusa/widgets/widgets.dart';
 
@@ -67,6 +68,16 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(),
       bottomNavigationBar: CustomNavBar(),
+      body: Container(
+          child: CarouselSlider(
+            options: CarouselOptions(
+              aspectRatio: 1.5,
+              viewportFraction: 0.9,
+              enlargeCenterPage: true,
+              enlargeStrategy: CenterPageEnlargeStrategy.height,
+            ),
+            items: imageSliders,
+          )),
     );
   }
 }
