@@ -10,15 +10,12 @@ part 'wishlist_state.dart';
 
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   WishlistBloc() : super(WishlistLoading()) {
-    on<WishlistEvent>((event, emit) {
-      // TODO: implement event handler
-      if(event is StarWishlist) {
-        emit(_mapStarWishlistToState());
-      } else if(event is AddWishlistProduct) {
-        emit(_mapAddWishlistProductToState());
-      } else if(event is RemoveWishlistProduct) {
-        emit(_mapRemoveWishlistProductToState());
-      }
-    });
+    on<StarWishlist>(_mapStarWishlistToState);
+    on<AddWishlistProduct>(_mapAddWishlistProductToState);
+    on<RemoveWishlistProduct>(_mapRemoveWishlistProductToState);
   }
+
+  void _mapStarWishlistToState(StarWishlist event, Emitter<WishlistState> emit) {}
+  void _mapAddWishlistProductToState(AddWishlistProduct event, Emitter<WishlistState> emit) {}
+  void _mapRemoveWishlistProductToState(RemoveWishlistProduct event, Emitter<WishlistState> emit) {}
 }
