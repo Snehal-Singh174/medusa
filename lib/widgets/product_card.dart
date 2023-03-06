@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medusa/bloc/wishlist/wishlist_bloc.dart';
 
 import '../model/product_model.dart';
 
@@ -85,13 +87,22 @@ class ProductCard extends StatelessWidget {
                           )),
                     ),
                     isWishlist
-                        ? Expanded(
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.white,
-                                )),
+                        ? BlocBuilder<WishlistBloc, WishlistState>(
+                            builder: (context, state) {
+                              return Expanded(
+                                child: IconButton(
+                                    onPressed: () {
+                                      context.read<WishlistBloc>().add(
+                                          RemoveWishlistProduct(productModel));
+                                      const snackBar = SnackBar(content: Text('Remove from your wishlist'));
+                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                    )),
+                              );
+                            },
                           )
                         : SizedBox()
                   ],

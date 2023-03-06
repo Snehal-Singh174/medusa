@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medusa/bloc/wishlist/wishlist_bloc.dart';
 import 'package:medusa/model/models.dart';
 import 'package:medusa/widgets/widgets.dart';
 
@@ -10,30 +12,46 @@ class WishlistScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute(
         settings: const RouteSettings(name: routeName),
-        builder: (_) =>  const WishlistScreen());
+        builder: (_) => const WishlistScreen());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Wishlist',),
-      bottomNavigationBar: CustomNavBar(),
-      body: GridView.builder(
-          padding:
-          const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1, childAspectRatio: 2.2),
-          itemCount: ProductModel.products.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Center(
-              child: ProductCard(
-                productModel: ProductModel.products[index],
-                widthFactor: 1.1,
-                leftPosition: 100,
-                isWishlist: true,
-              ),
+      appBar: const CustomAppBar(
+        title: 'Wishlist',
+      ),
+      bottomNavigationBar: const CustomNavBar(),
+      body: BlocBuilder<WishlistBloc, WishlistState>(
+        builder: (context, state) {
+          if(state is WishlistLoading){
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          }),
+          }
+          if(state is WishlistLoaded) {
+            return GridView.builder(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1, childAspectRatio: 2.2),
+                itemCount: state.wishlist.products.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Center(
+                    child: ProductCard(
+                      productModel: state.wishlist.products[index],
+                      widthFactor: 1.1,
+                      leftPosition: 100,
+                      isWishlist: true,
+                    ),
+                  );
+                });
+          }
+          else{
+            return const Text("Something went wrong");
+          }
+        },
+      ),
     );
   }
 }
