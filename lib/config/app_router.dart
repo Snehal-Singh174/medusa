@@ -1,22 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medusa/model/category_model.dart';
 import 'package:medusa/model/models.dart';
-import 'package:medusa/screens/cart/cart_screen.dart';
-import 'package:medusa/screens/catalog/catalog_screen.dart';
-import 'package:medusa/screens/home/home_screen.dart';
-import 'package:medusa/screens/product/product_screen.dart';
-import 'package:medusa/screens/wishlist/wishlist_screen.dart';
+import 'package:medusa/screens/screens.dart';
 
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
     print('This is route ${settings.name}');
 
     switch (settings.name) {
-      case HomeScreen.routeName:
+      case '/':
+        return HomeScreen.route();
+        case HomeScreen.routeName:
         return HomeScreen.route();
       case CartScreen.routeName:
         return CartScreen.route();
+        case SplashScreen.routeName:
+        return SplashScreen.route();
       case CatalogScreen.routeName:
         return CatalogScreen.route(category: settings.arguments as CategoryModel);
       case ProductScreen.routeName:

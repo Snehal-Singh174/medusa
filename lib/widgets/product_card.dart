@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medusa/bloc/cart/cart_bloc.dart';
 import 'package:medusa/bloc/wishlist/wishlist_bloc.dart';
 
 import '../model/product_model.dart';
@@ -12,10 +13,10 @@ class ProductCard extends StatelessWidget {
 
   const ProductCard(
       {Key? key,
-      required this.productModel,
-      this.widthFactor = 2.5,
-      this.leftPosition = 5,
-      this.isWishlist = false})
+        required this.productModel,
+        this.widthFactor = 2.5,
+        this.leftPosition = 5,
+        this.isWishlist = false})
       : super(key: key);
 
   @override
@@ -78,32 +79,56 @@ class ProductCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Expanded(
-                      child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.add_circle,
-                            color: Colors.white,
-                          )),
+                    BlocBuilder<CartBloc, CartState>(
+                      builder: (context, state) {
+                        if (state is CartLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (state is CartLoaded) {
+                          return Expanded(
+                            child: IconButton(
+                                onPressed: () {
+                                  context
+                                      .read<CartBloc>()
+                                      .add(CartProductAdded(productModel));
+                                  const snackBar = SnackBar(
+                                      content: Text('Added to your cart'));
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                },
+                                icon: const Icon(
+                                  Icons.add_circle,
+                                  color: Colors.white,
+                                )),
+                          );
+                        } else {
+                          return const Text("Something went wrong");
+                        }
+                      },
                     ),
                     isWishlist
                         ? BlocBuilder<WishlistBloc, WishlistState>(
-                            builder: (context, state) {
-                              return Expanded(
-                                child: IconButton(
-                                    onPressed: () {
-                                      context.read<WishlistBloc>().add(
-                                          RemoveWishlistProduct(productModel));
-                                      const snackBar = SnackBar(content: Text('Remove from your wishlist'));
-                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      color: Colors.white,
-                                    )),
-                              );
-                            },
-                          )
+                      builder: (context, state) {
+                        return Expanded(
+                          child: IconButton(
+                              onPressed: () {
+                                context.read<WishlistBloc>().add(
+                                    RemoveWishlistProduct(productModel));
+                                const snackBar = SnackBar(
+                                    content: Text(
+                                        'Remove from your wishlist'));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              },
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                              )),
+                        );
+                      },
+                    )
                         : SizedBox()
                   ],
                 ),

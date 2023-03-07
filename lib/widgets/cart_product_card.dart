@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medusa/bloc/cart/cart_bloc.dart';
 
 import '../model/product_model.dart';
 
-
 class CartProductCard extends StatelessWidget {
   final ProductModel product;
+  final int quantity;
 
-  const CartProductCard({Key? key, required this.product}) : super(key: key);
+  const CartProductCard(
+      {Key? key, required this.product, required this.quantity})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,16 +45,29 @@ class CartProductCard extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.remove_circle)),
-              Text(
-                '1',
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.add_circle))
-            ],
+          BlocBuilder<CartBloc, CartState>(
+            builder: (context, state) {
+              return Row(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        context
+                            .read<CartBloc>()
+                            .add(CartProductRemoved(product));
+                      },
+                      icon: const Icon(Icons.remove_circle)),
+                  Text(
+                    '$quantity',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        context.read<CartBloc>().add(CartProductAdded(product));
+                      },
+                      icon: const Icon(Icons.add_circle))
+                ],
+              );
+            },
           )
         ],
       ),
