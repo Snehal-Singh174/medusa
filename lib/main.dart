@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medusa/bloc/cart/cart_bloc.dart';
 import 'package:medusa/bloc/wishlist/wishlist_bloc.dart';
@@ -9,6 +10,10 @@ import 'config/theme.dart';
 import 'screens/screens.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   Bloc.observer = const SimpleBlocObserver();
   runApp(const MyApp());
 }

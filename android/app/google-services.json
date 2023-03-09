@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "67553841343",
+    "project_id": "flutter-ecomm-7adcd",
+    "storage_bucket": "flutter-ecomm-7adcd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67553841343:android:612d24939bc7065010f60a",
+        "android_client_info": {
+          "package_name": "com.example.medusa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "67553841343-f505a9dn567tuk75fj9rrhurm94pcfku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASZCvMBeAwH8GvcTmZCQlF78NldEsEtT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "67553841343-f505a9dn567tuk75fj9rrhurm94pcfku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
