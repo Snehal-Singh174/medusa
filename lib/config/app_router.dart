@@ -9,14 +9,17 @@ class AppRouter {
     switch (settings.name) {
       case '/':
         return HomeScreen.route();
-        case HomeScreen.routeName:
+      case HomeScreen.routeName:
         return HomeScreen.route();
       case CartScreen.routeName:
         return CartScreen.route();
-        case SplashScreen.routeName:
+      case CheckoutScreen.routeName:
+        return CheckoutScreen.route();
+      case SplashScreen.routeName:
         return SplashScreen.route();
       case CatalogScreen.routeName:
-        return CatalogScreen.route(category: settings.arguments as CategoryModel);
+        return CatalogScreen.route(
+            category: settings.arguments as CategoryModel);
       case ProductScreen.routeName:
         return ProductScreen.route(product: settings.arguments as ProductModel);
       case WishlistScreen.routeName:

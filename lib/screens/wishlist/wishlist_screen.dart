@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medusa/bloc/wishlist/wishlist_bloc.dart';
-import 'package:medusa/model/models.dart';
 import 'package:medusa/widgets/widgets.dart';
 
 class WishlistScreen extends StatelessWidget {
@@ -21,18 +20,20 @@ class WishlistScreen extends StatelessWidget {
       appBar: const CustomAppBar(
         title: 'Wishlist',
       ),
-      bottomNavigationBar: const CustomNavBar(),
+      bottomNavigationBar: const CustomNavBar(
+        screen: routeName,
+      ),
       body: BlocBuilder<WishlistBloc, WishlistState>(
         builder: (context, state) {
-          if(state is WishlistLoading){
+          if (state is WishlistLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-          if(state is WishlistLoaded) {
+          if (state is WishlistLoaded) {
             return GridView.builder(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1, childAspectRatio: 2.2),
                 itemCount: state.wishlist.products.length,
@@ -46,8 +47,7 @@ class WishlistScreen extends StatelessWidget {
                     ),
                   );
                 });
-          }
-          else{
+          } else {
             return const Text("Something went wrong");
           }
         },
