@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medusa/bloc/checkout/checkout_bloc.dart';
 
 import '../bloc/cart/cart_bloc.dart';
 import '../bloc/wishlist/wishlist_bloc.dart';
@@ -34,11 +35,13 @@ class CustomNavBar extends StatelessWidget {
         return _buildNavBar(context);
       case '/wishlist':
         return _buildNavBar(context);
+      case '/order-confirmation':
+        return _buildNavBar(context);
       case '/product':
         return _buildAddToCartNavBar(context, product);
       case '/cart':
         return _buildGoToCheckoutNavBar(context);
-        case '/checkout':
+      case '/checkout':
         return _buildOrderNowNavBar(context);
     }
   }
@@ -90,15 +93,31 @@ class CustomNavBar extends StatelessWidget {
 
   List<Widget> _buildOrderNowNavBar(context) {
     return [
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-        onPressed: () {
-          Navigator.pushNamed(context, "/checkout");
+      BlocBuilder<CheckoutBloc, CheckoutState>(
+        builder: (context, state) {
+          if (State is CheckoutLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state is CheckoutLoaded) {
+            return ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+              onPressed: () {
+                context
+                    .read<CheckoutBloc>()
+                    .add(ConfirmCheckout(checkout: state.checkout));
+                Navigator.pushNamed(context, '/order-confirmation');
+                },
+              child: Text(
+                'Order Now',
+                style: Theme.of(context).textTheme.headline3!,
+              ),
+            );
+          } else {
+            return const Text('Something went wrong');
+          }
         },
-        child: Text(
-          'Order Now',
-          style: Theme.of(context).textTheme.headline3!,
-        ),
       ),
     ];
   }

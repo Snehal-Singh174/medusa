@@ -16,7 +16,7 @@ TextTheme textTheme() {
         fontWeight: FontWeight.bold),
     headline2: TextStyle(
         color: Colors.black,
-        fontSize: 24,
+        fontSize: 22,
         fontFamily: 'Avenir',
         fontWeight: FontWeight.bold),
     headline3: TextStyle(

@@ -24,6 +24,8 @@ class AppRouter {
         return ProductScreen.route(product: settings.arguments as ProductModel);
       case WishlistScreen.routeName:
         return WishlistScreen.route();
+        case OrderConfirmationScreen.routeName:
+        return OrderConfirmationScreen.route();
       default:
         return _errorRoute();
     }
