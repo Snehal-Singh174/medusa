@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:medusa/widgets/widgets.dart';
 
+import '../../model/product_model.dart';
+
 class OrderConfirmationScreen extends StatelessWidget {
   const OrderConfirmationScreen({Key? key}) : super(key: key);
 
@@ -65,24 +67,43 @@ class OrderConfirmationScreen extends StatelessWidget {
                     'ORDER CODE: #k3421-f876',
                     style: Theme.of(context).textTheme.headline5,
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Text(
                     'Thank you for purchasing on medusa',
                     style: Theme.of(context).textTheme.headline6,
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Text(
                     'ORDER CODE: #k3421-f876',
                     style: Theme.of(context).textTheme.headline5,
                   ),
                   OrderSummary(),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Text(
                     'ORDER DETAILS',
                     style: Theme.of(context).textTheme.headline5,
                   ),
-                  Divider(thickness: 2,),
-                  SizedBox(height: 5,),
+                  Divider(
+                    thickness: 2,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  ListView(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: [
+                     OrderSummaryProductCard(product: ProductModel.products[0], quantity: 2),
+                     OrderSummaryProductCard(product: ProductModel.products[1], quantity: 2),
+                    ],
+                  )
                 ],
               ),
             )

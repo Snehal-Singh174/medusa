@@ -26,75 +26,77 @@ class HomeScreen extends StatelessWidget {
       bottomNavigationBar: CustomNavBar(
         screen: routeName,
       ),
-      body: Column(
-        children: [
-          BlocBuilder<CategoryBloc, CategoryState>(
-            builder: (context, state) {
-              if (state is CategoryLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (state is CategoryLoaded) {
-                return CarouselSlider(
-                  options: CarouselOptions(
-                    aspectRatio: 1.5,
-                    viewportFraction: 0.9,
-                    enlargeCenterPage: true,
-                    enlargeStrategy: CenterPageEnlargeStrategy.height,
-                  ),
-                  items: state.categories
-                      .map((category) => HeroCarouselCard(category: category))
-                      .toList(),
-                );
-              } else {
-                return const Text('Something went wrong');
-              }
-            },
-          ),
-          const SectionTitle(
-            title: 'RECOMMENDED',
-          ),
-          BlocBuilder<ProductBloc, ProductState>(
-            builder: (context, state) {
-              if (state is ProductLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (state is ProductLoaded) {
-                return ProductCarousel(
-                  products: state.products
-                      .where((product) => product.isRecommended)
-                      .toList(),
-                );
-              } else {
-                return const Text('Something went wrong');
-              }
-            },
-          ),
-          const SectionTitle(
-            title: 'POPULAR',
-          ),
-          BlocBuilder<ProductBloc, ProductState>(
-            builder: (context, state) {
-              if (state is ProductLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (state is ProductLoaded) {
-                return ProductCarousel(
-                  products: state.products
-                      .where((product) => product.isPopular)
-                      .toList(),
-                );
-              } else {
-                return const Text('Something went wrong');
-              }
-            },
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            BlocBuilder<CategoryBloc, CategoryState>(
+              builder: (context, state) {
+                if (state is CategoryLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is CategoryLoaded) {
+                  return CarouselSlider(
+                    options: CarouselOptions(
+                      aspectRatio: 1.5,
+                      viewportFraction: 0.9,
+                      enlargeCenterPage: true,
+                      enlargeStrategy: CenterPageEnlargeStrategy.height,
+                    ),
+                    items: state.categories
+                        .map((category) => HeroCarouselCard(category: category))
+                        .toList(),
+                  );
+                } else {
+                  return const Text('Something went wrong');
+                }
+              },
+            ),
+            const SectionTitle(
+              title: 'RECOMMENDED',
+            ),
+            BlocBuilder<ProductBloc, ProductState>(
+              builder: (context, state) {
+                if (state is ProductLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is ProductLoaded) {
+                  return ProductCarousel(
+                    products: state.products
+                        .where((product) => product.isRecommended)
+                        .toList(),
+                  );
+                } else {
+                  return const Text('Something went wrong');
+                }
+              },
+            ),
+            const SectionTitle(
+              title: 'POPULAR',
+            ),
+            BlocBuilder<ProductBloc, ProductState>(
+              builder: (context, state) {
+                if (state is ProductLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is ProductLoaded) {
+                  return ProductCarousel(
+                    products: state.products
+                        .where((product) => product.isPopular)
+                        .toList(),
+                  );
+                } else {
+                  return const Text('Something went wrong');
+                }
+              },
+            )
+          ],
+        ),
       ),
     );
   }

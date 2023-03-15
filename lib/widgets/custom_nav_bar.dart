@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medusa/bloc/checkout/checkout_bloc.dart';
+import 'package:medusa/widgets/google_pay.dart';
+import 'package:medusa/widgets/widgets.dart';
 
 import '../bloc/cart/cart_bloc.dart';
 import '../bloc/wishlist/wishlist_bloc.dart';
@@ -101,19 +105,17 @@ class CustomNavBar extends StatelessWidget {
             );
           }
           if (state is CheckoutLoaded) {
-            return ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-              onPressed: () {
-                context
-                    .read<CheckoutBloc>()
-                    .add(ConfirmCheckout(checkout: state.checkout));
-                Navigator.pushNamed(context, '/order-confirmation');
-                },
-              child: Text(
-                'Order Now',
-                style: Theme.of(context).textTheme.headline3!,
-              ),
-            );
+            if (Platform.isAndroid) {
+              return GooglePay(total: state.total!, products: state.product!);
+            }
+            if (Platform.isIOS) {
+              return ApplePay(total: state.total!, products: state.product!);
+            } else {
+              return Text(
+                "Something went wrong",
+                style: Theme.of(context).textTheme.headline3,
+              );
+            }
           } else {
             return const Text('Something went wrong');
           }
