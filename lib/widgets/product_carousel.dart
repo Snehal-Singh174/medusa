@@ -5,6 +5,7 @@ import 'widgets.dart';
 
 class ProductCarousel extends StatelessWidget {
   final List<ProductModel> products;
+
   const ProductCarousel({Key? key, required this.products}) : super(key: key);
 
   @override
@@ -19,7 +20,7 @@ class ProductCarousel extends StatelessWidget {
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.only(right: 15.0),
-              child: ProductCard(productModel: products[index]),
+              child: ProductCard.catalog(productModel: products[index]),
             );
           }),
     );

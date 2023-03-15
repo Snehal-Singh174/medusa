@@ -39,11 +39,8 @@ class WishlistScreen extends StatelessWidget {
                 itemCount: state.wishlist.products.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Center(
-                    child: ProductCard(
+                    child: ProductCard.wishlist(
                       productModel: state.wishlist.products[index],
-                      widthFactor: 1.1,
-                      leftPosition: 100,
-                      isWishlist: true,
                     ),
                   );
                 });
