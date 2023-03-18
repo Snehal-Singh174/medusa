@@ -20,7 +20,9 @@ class CartScreen extends StatelessWidget {
       appBar: const CustomAppBar(
         title: 'Cart',
       ),
-      bottomNavigationBar: const CustomNavBar(screen: routeName,),
+      bottomNavigationBar: const CustomNavBar(
+        screen: routeName,
+      ),
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           if (state is CartLoading) {
@@ -29,10 +31,11 @@ class CartScreen extends StatelessWidget {
             );
           }
           if (state is CartLoaded) {
+            Map cart = state.cart.productQuantity(state.cart.products);
             return SingleChildScrollView(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 10.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -69,20 +72,11 @@ class CartScreen extends StatelessWidget {
                         SizedBox(
                           height: 400,
                           child: ListView.builder(
-                              itemCount: state.cart
-                                  .productQuantity(state.cart.products)
-                                  .keys
-                                  .length,
+                              itemCount: cart.keys.length,
                               itemBuilder: (context, index) {
-                                return CartProductCard(
-                                  product: state.cart
-                                      .productQuantity(state.cart.products)
-                                      .keys
-                                      .elementAt(index),
-                                  quantity: state.cart
-                                      .productQuantity(state.cart.products)
-                                      .values
-                                      .elementAt(index),
+                                return ProductCard.cart(
+                                  productModel: cart.keys.elementAt(index),
+                                  quantity: cart.values.elementAt(index),
                                 );
                               }),
                         ),

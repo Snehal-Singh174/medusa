@@ -84,33 +84,39 @@ class ProductCard extends StatelessWidget {
         }
       },
       child: (isCart || isSummary)
-          ? Row(
-              children: [
-                ProductImage(
-                  adjwidth: adjwidth,
-                  productModel: productModel,
-                  height: height,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: ProductInformation(
+          ? Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: Row(
+                children: [
+                  ProductImage(
+                    adjwidth: 100,
                     productModel: productModel,
-                    fontColor: fontColor,
+                    height: height,
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                ProductActions(
-                  productModel: productModel,
-                  isWishlist: isWishlist,
-                  isCatalog: isCatalog,
-                  isCart: isCart,
-                  iconColor: iconColor,
-                )
-              ],
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: ProductInformation(
+                      productModel: productModel,
+                      fontColor: fontColor,
+                      quantity: quantity,
+                      isOrderSummary: isSummary,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  ProductActions(
+                    productModel: productModel,
+                    quantity: quantity,
+                    isWishlist: isWishlist,
+                    isCatalog: isCatalog,
+                    isCart: isCart,
+                    iconColor: iconColor,
+                  )
+                ],
+              ),
             )
           : Stack(
               alignment: Alignment.bottomCenter,
@@ -289,24 +295,38 @@ class ProductInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          productModel.name,
-          style: Theme.of(context)
-              .textTheme
-              .headline4!
-              .copyWith(color: Colors.white),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              productModel.name,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4!
+                  .copyWith(color: fontColor),
+            ),
+            Text(
+              '\$${productModel.price}',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(color: fontColor),
+            ),
+            isOrderSummary
+                ? Text(
+                    'Qty. $quantity',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: fontColor),
+                  )
+                : const SizedBox(),
+          ],
         ),
-        Text(
-          '\$${productModel.price}',
-          style: Theme.of(context)
-              .textTheme
-              .headline6!
-              .copyWith(color: Colors.white),
-        )
       ],
     );
   }
