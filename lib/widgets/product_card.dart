@@ -17,113 +17,147 @@ class ProductCard extends StatelessWidget {
   final Color iconColor;
   final Color fontColor;
 
-  const ProductCard.catalog({Key? key,
-    required this.productModel,
-    this.iconColor = Colors.white,
-    this.fontColor = Colors.white,
-    this.quantity,
-    this.widthFactor = 1.45,
-    this.height = 150,
-    this.isCatalog = true,
-    this.isCart = false,
-    this.isSummary = false,
-    this.isWishlist = false})
+  const ProductCard.catalog(
+      {Key? key,
+      required this.productModel,
+      this.iconColor = Colors.white,
+      this.fontColor = Colors.white,
+      this.quantity,
+      this.widthFactor = 1.45,
+      this.height = 150,
+      this.isCatalog = true,
+      this.isCart = false,
+      this.isSummary = false,
+      this.isWishlist = false})
       : super(key: key);
 
-  const ProductCard.cart({Key? key,
-    required this.productModel,
-    this.iconColor = Colors.black,
-    this.fontColor = Colors.black,
-    this.quantity,
-    this.widthFactor = 2.25,
-    this.height = 80,
-    this.isCatalog = false,
-    this.isCart = true,
-    this.isSummary = false,
-    this.isWishlist = false})
+  const ProductCard.cart(
+      {Key? key,
+      required this.productModel,
+      this.iconColor = Colors.black,
+      this.fontColor = Colors.black,
+      this.quantity,
+      this.widthFactor = 2.25,
+      this.height = 80,
+      this.isCatalog = false,
+      this.isCart = true,
+      this.isSummary = false,
+      this.isWishlist = false})
       : super(key: key);
 
-  const ProductCard.wishlist({Key? key,
-    required this.productModel,
-    this.iconColor = Colors.white,
-    this.fontColor = Colors.white,
-    this.quantity,
-    this.widthFactor = 1.1,
-    this.height = 150,
-    this.isCatalog = false,
-    this.isCart = false,
-    this.isSummary = false,
-    this.isWishlist = true})
+  const ProductCard.wishlist(
+      {Key? key,
+      required this.productModel,
+      this.iconColor = Colors.white,
+      this.fontColor = Colors.white,
+      this.quantity,
+      this.widthFactor = 1.1,
+      this.height = 150,
+      this.isCatalog = false,
+      this.isCart = false,
+      this.isSummary = false,
+      this.isWishlist = true})
       : super(key: key);
 
-  const ProductCard.summary({Key? key,
-    required this.productModel,
-    this.iconColor = Colors.black,
-    this.fontColor = Colors.black,
-    this.quantity,
-    this.widthFactor = 2.25,
-    this.height = 80,
-    this.isCatalog = false,
-    this.isCart = false,
-    this.isSummary = true,
-    this.isWishlist = false})
+  const ProductCard.summary(
+      {Key? key,
+      required this.productModel,
+      this.iconColor = Colors.black,
+      this.fontColor = Colors.black,
+      this.quantity,
+      this.widthFactor = 2.25,
+      this.height = 80,
+      this.isCatalog = false,
+      this.isCart = false,
+      this.isSummary = true,
+      this.isWishlist = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery
-        .of(context)
-        .size
-        .width / widthFactor;
+    final double width = MediaQuery.of(context).size.width / widthFactor;
     final double adjwidth = width / widthFactor;
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/product', arguments: productModel);
+        if (isCatalog || isWishlist) {
+          Navigator.pushNamed(context, '/product', arguments: productModel);
+        }
       },
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          ProductImage(
-            adjwidth: adjwidth,
-            productModel: productModel,
-            height: height,
-          ),
-          Positioned(
-            top: 60,
-            left: 5,
-            child: Container(
-              width: adjwidth - 10,
-              height: 80,
-              decoration: BoxDecoration(color: Colors.black.withAlpha(50)),
-            ),
-          ),
-          ProductBackground(adjWidth: adjwidth, widgets: [
-            ProductInformation(
-              productModel: productModel,
-              fontColor: fontColor,
-            ),
-            ProductActions(
-              productModel: productModel,
-              isWishlist: isWishlist,
-              isCatalog: isCatalog,
-              isCart: isCart,
-              iconColor: iconColor,
+      child: (isCart || isSummary)
+          ? Row(
+              children: [
+                ProductImage(
+                  adjwidth: adjwidth,
+                  productModel: productModel,
+                  height: height,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: ProductInformation(
+                    productModel: productModel,
+                    fontColor: fontColor,
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                ProductActions(
+                  productModel: productModel,
+                  isWishlist: isWishlist,
+                  isCatalog: isCatalog,
+                  isCart: isCart,
+                  iconColor: iconColor,
+                )
+              ],
             )
-          ])
-        ],
-      ),
+          : Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                ProductImage(
+                  adjwidth: adjwidth,
+                  productModel: productModel,
+                  height: height,
+                ),
+                Positioned(
+                  top: 60,
+                  left: 5,
+                  child: Container(
+                    width: adjwidth - 10,
+                    height: 80,
+                    decoration:
+                        BoxDecoration(color: Colors.black.withAlpha(50)),
+                  ),
+                ),
+                ProductBackground(adjWidth: adjwidth, widgets: [
+                  ProductInformation(
+                    productModel: productModel,
+                    fontColor: fontColor,
+                  ),
+                  ProductActions(
+                    productModel: productModel,
+                    isWishlist: isWishlist,
+                    isCatalog: isCatalog,
+                    isCart: isCart,
+                    iconColor: iconColor,
+                  )
+                ])
+              ],
+            ),
     );
   }
 }
 
 class ProductActions extends StatelessWidget {
-  const ProductActions({Key? key,
-    required this.productModel,
-    required this.isCatalog,
-    required this.isWishlist,
-    required this.isCart,
-    required this.iconColor,
-    this.quantity})
+  const ProductActions(
+      {Key? key,
+      required this.productModel,
+      required this.isCatalog,
+      required this.isWishlist,
+      required this.isCart,
+      required this.iconColor,
+      this.quantity})
       : super(key: key);
 
   final ProductModel productModel;
@@ -147,31 +181,69 @@ class ProductActions extends StatelessWidget {
             if (state is CartLoaded) {
               IconButton addProduct = IconButton(
                   onPressed: () {
-                    // context
-                    //     .read<CartBloc>()
-                    //     .add(CartProductAdded(productModel));
                     // const snackBar =
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Added to your cart')));
+                        const SnackBar(content: Text('Added to your cart')));
+                    context
+                        .read<CartBloc>()
+                        .add(CartProductAdded(productModel));
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.add_circle,
-                    color: Colors.white,
+                    color: iconColor,
                   ));
+              IconButton removeProduct = IconButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Removed from your cart'),
+                    ),
+                  );
+                  context.read<CartBloc>().add(
+                        CartProductRemoved(productModel),
+                      );
+                },
+                icon: Icon(
+                  Icons.remove_circle,
+                  color: iconColor,
+                ),
+              );
               IconButton removeFromWishlist = IconButton(
-                  onPressed: () {
-                    // context
-                    //     .read<WishlistBloc>()
-                    //     .add(RemoveWishlistProduct(productModel));
-                    // const snackBar = ;
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Remove from your wishlist')));
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.white,
-                  ));
-              return Container();
+                onPressed: () {
+                  // const snackBar = ;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Remove from your wishlist'),
+                    ),
+                  );
+                  context.read<WishlistBloc>().add(
+                        RemoveWishlistProduct(productModel),
+                      );
+                },
+                icon: Icon(
+                  Icons.delete,
+                  color: iconColor,
+                ),
+              );
+              Text productQuantity = Text(
+                '$quantity',
+                style: Theme.of(context).textTheme.headline5,
+              );
+              if (isCatalog) {
+                return Row(children: [addProduct]);
+              }
+              if (isWishlist) {
+                return Row(children: [addProduct, removeFromWishlist]);
+              }
+              if (isCart) {
+                return Row(children: [
+                  removeProduct,
+                  productQuantity,
+                  addProduct,
+                ]);
+              } else {
+                return const SizedBox();
+              }
             } else {
               return const Text("Something went wrong");
             }
@@ -202,11 +274,12 @@ class ProductActions extends StatelessWidget {
 }
 
 class ProductInformation extends StatelessWidget {
-  const ProductInformation({Key? key,
-    required this.productModel,
-    required this.fontColor,
-    this.isOrderSummary = false,
-    this.quantity})
+  const ProductInformation(
+      {Key? key,
+      required this.productModel,
+      required this.fontColor,
+      this.isOrderSummary = false,
+      this.quantity})
       : super(key: key);
 
   final ProductModel productModel;
@@ -222,16 +295,14 @@ class ProductInformation extends StatelessWidget {
       children: [
         Text(
           productModel.name,
-          style: Theme
-              .of(context)
+          style: Theme.of(context)
               .textTheme
               .headline4!
               .copyWith(color: Colors.white),
         ),
         Text(
           '\$${productModel.price}',
-          style: Theme
-              .of(context)
+          style: Theme.of(context)
               .textTheme
               .headline6!
               .copyWith(color: Colors.white),
