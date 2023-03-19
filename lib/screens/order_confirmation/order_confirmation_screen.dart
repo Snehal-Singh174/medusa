@@ -103,7 +103,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                       ProductCard.summary(
                           productModel: ProductModel.products[0], quantity: 2),
                       ProductCard.summary(
-                          productModel: ProductModel.products[1], quantity: 2),
+                          productModel: ProductModel.products[1], quantity: 3),
                     ],
                   )
                 ],
