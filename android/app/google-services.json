@@ -7,14 +7,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:67553841343:android:612d24939bc7065010f60a",
+        "mobilesdk_app_id": "1:67553841343:android:391a5d03aab488cc10f60a",
         "android_client_info": {
-          "package_name": "com.example.medusa"
+          "package_name": "com.example.ecom_backend"
         }
       },
       "oauth_client": [
         {
-          "client_id": "67553841343-f505a9dn567tuk75fj9rrhurm94pcfku.apps.googleusercontent.com",
+          "client_id": "67553841343-hs06pkqhof2tu9a4odfgvbcmdo6f38fp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ecom_backend",
+            "certificate_hash": "9a94e250872c022f95d697affffe02f904cf0a79"
+          }
+        },
+        {
+          "client_id": "67553841343-v07rubne4qc35akdsm9hcju858jcjpav.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +37,49 @@
             {
               "client_id": "67553841343-f505a9dn567tuk75fj9rrhurm94pcfku.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "67553841343-et13en16lcr4tltm3fh72o68o8a95m8a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.medusa"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67553841343:android:612d24939bc7065010f60a",
+        "android_client_info": {
+          "package_name": "com.example.medusa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "67553841343-v07rubne4qc35akdsm9hcju858jcjpav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASZCvMBeAwH8GvcTmZCQlF78NldEsEtT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "67553841343-f505a9dn567tuk75fj9rrhurm94pcfku.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "67553841343-et13en16lcr4tltm3fh72o68o8a95m8a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.medusa"
+              }
             }
           ]
         }

@@ -7,7 +7,7 @@ part 'product_model.g.dart';
 @HiveType(typeId: 0)
 class ProductModel extends Equatable {
   @HiveField(0)
-  final String id;
+  final int id;
   @HiveField(1)
   final String name;
   @HiveField(2)
@@ -20,6 +20,8 @@ class ProductModel extends Equatable {
   final bool isRecommended;
   @HiveField(6)
   final bool isPopular;
+  @HiveField(7)
+  final String? description;
 
   const ProductModel({
     required this.id,
@@ -29,11 +31,12 @@ class ProductModel extends Equatable {
     required this.price,
     required this.isRecommended,
     required this.isPopular,
+    this.description
   });
 
   @override
   List<Object?> get props =>
-      [id, name, category, imageUrl, price, isRecommended, isPopular];
+      [id, name, category, imageUrl, price, isRecommended, isPopular, description];
 
   static ProductModel fromSnapShot(DocumentSnapshot snap) {
     final ProductModel products = ProductModel(
@@ -43,14 +46,16 @@ class ProductModel extends Equatable {
         imageUrl: snap['imageUrl'],
         price: snap['price'],
         isRecommended: snap['isRecommended'],
-        isPopular: snap['isPopular']);
+        isPopular: snap['isPopular'],
+        description: snap['description'],
+    );
 
     return products;
   }
 
   static List<ProductModel> products = [
     const ProductModel(
-        id: '0',
+        id: 0,
         name: 'Soft Drink #1',
         category: 'Soft Drinks',
         imageUrl:
@@ -59,7 +64,7 @@ class ProductModel extends Equatable {
         isRecommended: true,
         isPopular: false),
     const ProductModel(
-        id: '1',
+        id: 1,
         name: 'Soft Drink #2',
         category: 'Soft Drinks',
         imageUrl:
@@ -68,7 +73,7 @@ class ProductModel extends Equatable {
         isRecommended: true,
         isPopular: false),
     const ProductModel(
-        id: '2',
+        id: 2,
         name: 'Soft Drink #3',
         category: 'Soft Drinks',
         imageUrl:
@@ -77,7 +82,7 @@ class ProductModel extends Equatable {
         isRecommended: false,
         isPopular: true),
     const ProductModel(
-        id: '3',
+        id: 3,
         name: 'Smoothies #1',
         category: 'Smoothies',
         imageUrl:
@@ -86,7 +91,7 @@ class ProductModel extends Equatable {
         isRecommended: true,
         isPopular: false),
     const ProductModel(
-        id: '4',
+        id: 4,
         name: 'Smoothies #2',
         category: 'Smoothies',
         imageUrl:
