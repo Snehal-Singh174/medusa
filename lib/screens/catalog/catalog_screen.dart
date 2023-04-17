@@ -19,7 +19,6 @@ class CatalogScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final List<ProductModel> categoryProduct = ProductModel.products.where((product) => product.category == category.name).toList();
     return Scaffold(
         appBar: CustomAppBar(
           title: category.name,
