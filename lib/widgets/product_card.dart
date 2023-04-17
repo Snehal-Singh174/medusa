@@ -255,25 +255,6 @@ class ProductActions extends StatelessWidget {
             }
           },
         ),
-        // isWishlist
-        //     ? BlocBuilder<WishlistBloc, WishlistState>(
-        //         builder: (context, state) {
-        //           return IconButton(
-        //               onPressed: () {
-        //                 context
-        //                     .read<WishlistBloc>()
-        //                     .add(RemoveWishlistProduct(productModel));
-        //                 const snackBar = SnackBar(
-        //                     content: Text('Remove from your wishlist'));
-        //                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        //               },
-        //               icon: const Icon(
-        //                 Icons.delete,
-        //                 color: Colors.white,
-        //               ));
-        //         },
-        //       )
-        //     : SizedBox()
       ],
     );
   }
